@@ -13,9 +13,10 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <>
+      {/* PC/태블릿용 기존 카드 */}
       <motion.div
         whileHover={{ y: -10 }}
-        className="group relative rounded-2xl overflow-hidden glass aspect-[4/5] md:aspect-[32/9]"
+        className="group relative rounded-2xl overflow-hidden glass aspect-[4/5] md:aspect-[32/9] hidden md:block"
       >
         <img
           src={project.image}
@@ -161,6 +162,146 @@ export default function ProjectCard({ project }: { project: Project }) {
                 </a>
               )}
             </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* 모바일용 카드 */}
+      <motion.div
+        whileHover={{ y: -5 }}
+        className="group rounded-2xl overflow-hidden glass flex flex-col md:hidden"
+      >
+        <img
+          src={project.image}
+          alt="project thumbnail"
+          className="w-full h-48 object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-500"
+          referrerPolicy="no-referrer"
+        />
+        <div className="bg-gradient-to-t from-bg/80 via-bg/10 to-transparent w-full h-48 absolute top-0 left-0" />
+        <div className="relative z-10 flex flex-col gap-4 p-4">
+          <h3 className="text-xl font-bold leading-tight">{project.title}</h3>
+          <p className="text-white/60 text-sm line-clamp-3">
+            {project.description}
+          </p>
+          <button
+            onClick={() => setModalOpen(true)}
+            className="self-start text-accent text-xs font-mono hover:underline transition-opacity"
+          >
+            더보기 →
+          </button>
+          {project.roles && project.roles.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {project.roles.slice(0, 3).map((role) => (
+                <span
+                  key={role}
+                  className="px-2 py-0.5 rounded-full bg-black/50 text-accent text-[10px] font-mono border border-accent/30"
+                >
+                  {role}
+                </span>
+              ))}
+              {project.roles.length > 3 && (
+                <span className="px-2 py-0.5 rounded-full bg-white/10 text-white/40 text-[10px] font-mono">
+                  +{project.roles.length - 3}
+                </span>
+              )}
+            </div>
+          )}
+          <p className="text-white/40 text-[11px] font-mono tracking-wider">
+            {project.tags.join(" · ")}
+          </p>
+          <div className="flex gap-3 flex-wrap">
+            {project.architectures && project.architectures.length > 0 && (
+              <button
+                onClick={() => setArchOpen(true)}
+                aria-label="아키텍처 보기"
+                title="아키텍처 문서"
+                className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-white/10 hover:bg-accent hover:text-black transition-all text-[11px] font-mono"
+              >
+                <Layout size={13} /> Arch
+              </button>
+            )}
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub repository"
+                className="p-2 rounded-full bg-white/10 hover:bg-accent hover:text-black transition-all"
+              >
+                <Github size={16} />
+              </a>
+            )}
+            {project.githubFrontend && (
+              <a
+                href={project.githubFrontend}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Frontend GitHub"
+                title="Frontend GitHub"
+                className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-white/10 hover:bg-accent hover:text-black transition-all text-[11px] font-mono"
+              >
+                <Github size={13} /> FE
+              </a>
+            )}
+            {project.githubBackend && (
+              <a
+                href={project.githubBackend}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Backend GitHub"
+                title="Backend GitHub"
+                className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-white/10 hover:bg-accent hover:text-black transition-all text-[11px] font-mono"
+              >
+                <Github size={13} /> BE
+              </a>
+            )}
+            {project.swagger && (
+              <a
+                href={project.swagger}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Swagger API docs"
+                title="Swagger API 문서"
+                className="p-2 rounded-full bg-white/10 hover:bg-accent hover:text-black transition-all"
+              >
+                <BookOpen size={16} />
+              </a>
+            )}
+            {project.figma && (
+              <a
+                href={project.figma}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Figma 디자인"
+                title="Figma 디자인"
+                className="p-2 rounded-full bg-white/10 hover:bg-accent hover:text-black transition-all"
+              >
+                <Figma size={16} />
+              </a>
+            )}
+            {project.reference && (
+              <a
+                href={project.reference}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="참고 자료"
+                title="참고 자료"
+                className="p-2 rounded-full bg-white/10 hover:bg-accent hover:text-black transition-all"
+              >
+                <Link size={16} />
+              </a>
+            )}
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Live demo"
+                className="p-2 rounded-full bg-white/10 hover:bg-accent hover:text-black transition-all"
+              >
+                <ExternalLink size={16} />
+              </a>
+            )}
           </div>
         </div>
       </motion.div>
