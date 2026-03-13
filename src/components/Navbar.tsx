@@ -42,7 +42,7 @@ export default function Navbar() {
           <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
             <Code2 className="text-black w-5 h-5" />
           </div>
-          <span className="font-mono">Sungmin.dev</span>
+          <span className="font-mono">Seongmin.dev</span>
         </motion.div>
 
         {/* Desktop nav */}
