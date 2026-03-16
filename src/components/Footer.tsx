@@ -1,4 +1,4 @@
-import { Code2, Github, Linkedin, Mail } from "lucide-react";
+import { Code2, Github, Linkedin, Mail, PenSquare } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -14,14 +14,14 @@ export default function Footer() {
           © 2026 이성민. All rights reserved.
         </p>
         <div className="flex gap-6">
-          <a href="#" aria-label="GitHub" className="text-white/30 hover:text-accent transition-colors">
-            <Github size={20} />
+         <a href="https://github.com/lee-sung-min405" aria-label="GitHub" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">
+            <Github size={24} />
           </a>
-          <a href="#" aria-label="LinkedIn" className="text-white/30 hover:text-accent transition-colors">
-            <Linkedin size={20} />
+          <a href="https://m.blog.naver.com/seongmin000211_dev?tab=1" aria-label="Blog" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">
+            <PenSquare size={24} />
           </a>
-          <a href="#" aria-label="Email" className="text-white/30 hover:text-accent transition-colors">
-            <Mail size={20} />
+          <a href="#contact" aria-label="Email" className="text-white/40 hover:text-white transition-colors">
+            <Mail size={24} />
           </a>
         </div>
       </div>
