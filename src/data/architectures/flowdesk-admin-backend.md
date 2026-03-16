@@ -685,10 +685,10 @@ erDiagram
         int tenant_id PK
         string tenant_name
         string display_name
-        boolean is_active
+        bool is_active
         string domain
     }
-
+    
     users {
         int user_seq PK
         int tenant_id FK
@@ -697,16 +697,16 @@ erDiagram
         string corp_name
         string user_name
         int token_version
-        boolean is_active
+        bool is_active
     }
-
+    
     roles {
         int role_id PK
         int tenant_id FK
         string role_name
         string display_name
         string description
-        boolean is_active
+        bool is_active
     }
 
     tenant_status {
@@ -720,14 +720,14 @@ erDiagram
     }
 
     user_roles {
-        int user_seq CPK
-        int tenant_id CPK
-        int role_id CPK
+        int user_seq PK "FK"
+        int tenant_id PK "FK"
+        int role_id PK "FK"
     }
 
     role_permissions {
-        int role_id CPK
-        int permission_id CPK
+        int role_id PK "FK"
+        int permission_id PK "FK"
     }
 
     permissions {
@@ -735,7 +735,7 @@ erDiagram
         int page_id FK
         int action_id FK
         string display_name
-        boolean is_active
+        bool is_active
     }
 
     pages {
@@ -773,19 +773,19 @@ erDiagram
     }
 
     counsel_log {
-        int counsel_seq CPK
-        int tenant_id CPK
-        int log_no CPK
+        int counsel_seq PK "FK"
+        int tenant_id PK "FK"
+        int log_no PK
         int counsel_stat FK
         datetime reg_dtm
     }
 
     counsel_field_value {
-        int counsel_seq CPK
-        int tenant_id CPK
-        int field_id CPK
+        int counsel_seq PK "FK"
+        int tenant_id PK "FK"
+        int field_id PK "FK"
         string value_text
-        decimal value_number
+        number value_number
         date value_date
         datetime value_datetime
     }
@@ -796,8 +796,8 @@ erDiagram
         int tenant_id FK
         int status_id FK
         int created_by FK
-        text memo_text
-        boolean is_deleted
+        string memo_text
+        bool is_deleted
     }
 
     counsel_field_def {
@@ -806,8 +806,8 @@ erDiagram
         string field_key
         string label
         string field_type
-        boolean is_required
-        json options_json
+        bool is_required
+        string options_json
     }
 
     block_ip {
@@ -815,7 +815,7 @@ erDiagram
         int tenant_id FK
         string block_ip
         string reason
-        boolean is_active
+        bool is_active
         int created_by FK
     }
 
@@ -824,7 +824,7 @@ erDiagram
         int tenant_id FK
         string block_hp
         string reason
-        boolean is_active
+        bool is_active
         int created_by FK
     }
 
@@ -842,7 +842,7 @@ erDiagram
         int tenant_id FK
         string board_key
         string name
-        boolean is_active
+        bool is_active
         int sort_order
     }
 
@@ -852,18 +852,18 @@ erDiagram
         int tenant_id FK
         int user_seq FK
         string title
-        text content
-        boolean is_notice
+        string content
+        bool is_notice
         string delete_state
     }
 
     refresh_tokens {
         int id PK
-        string token_id UK
+        string token_id "UK"
         string token_hash
         int user_seq FK
         datetime expires_at
-        boolean revoked
+        bool revoked
     }
 
     tenants ||--o{ users : "has"
@@ -876,7 +876,7 @@ erDiagram
     tenants ||--o{ block_hp : "manages"
     tenants ||--o{ block_word : "manages"
     tenants ||--o{ counsel_field_def : "defines"
-
+    
     users ||--o{ user_roles : "assigned"
     roles ||--o{ user_roles : "assigned"
     roles ||--o{ role_permissions : "granted"
@@ -946,46 +946,46 @@ erDiagram
 Page 계층 구조:
 ```mermaid
 flowchart TB
-    subgraph PageTree["📋 Page 계층 구조 (parent_id = NULL)"]
+    subgraph TREE_VIEW["PageTree"]
         direction TB
-        Root["pages"]
-        Users["users"]
-        Roles["roles"]
-        Boards["boards"]
-        Counsels["counsels"]
-        SD["super/dashboard"]
-        ST["super/tenants"]
-        SP["super/permissions"]
+        RootNode["pages"]
+        UsersPG["users"]
+        RolesPG["roles"]
+        BoardsPG["boards"]
+        CounselsPG["counsels"]
+        SDPG["super_dashboard"]
+        STPG["super_tenants"]
+        SPPG["super_permissions"]
 
-        Root --> Users
-        Root --> Roles
-        Root --> Boards
-        Root --> Counsels
-        Root --> SD
-        Root --> ST
-        Root --> SP
+        RootNode --> UsersPG
+        RootNode --> RolesPG
+        RootNode --> BoardsPG
+        RootNode --> CounselsPG
+        RootNode --> SDPG
+        RootNode --> STPG
+        RootNode --> SPPG
     end
 
-    subgraph Permissions["🔑 생성되는 Permission"]
-        UP["users.read · users.create<br/>users.update · users.delete"]
-        RP["roles.read · roles.create<br/>roles.update · roles.delete"]
-        BP["boards.read · boards.create · ..."]
-        CP["counsels.read · counsels.create · ..."]
-        SDP["super/dashboard.read"]
-        STP["super/tenants.read<br/>super/tenants.manage"]
-        SPP["super/permissions.read<br/>super/permissions.manage"]
+    subgraph PERM_VIEW["PermissionList"]
+        UsersPM["users.read, users.create, users.update, users.delete"]
+        RolesPM["roles.read, roles.create, roles.update, roles.delete"]
+        BoardsPM["boards.read, boards.create"]
+        CounselsPM["counsels.read, counsels.create"]
+        SDPPM["super_dashboard.read"]
+        STPPM["super_tenants.read, super_tenants.manage"]
+        SPPPM["super_permissions.read, super_permissions.manage"]
     end
 
-    Users --> UP
-    Roles --> RP
-    Boards --> BP
-    Counsels --> CP
-    SD --> SDP
-    ST --> STP
-    SP --> SPP
+    UsersPG --> UsersPM
+    RolesPG --> RolesPM
+    BoardsPG --> BoardsPM
+    CounselsPG --> CounselsPM
+    SDPG --> SDPPM
+    STPG --> STPPM
+    SPPG --> SPPPM
 
-    style PageTree fill:#e1f5fe,stroke:#0288d1
-    style Permissions fill:#fff3e0,stroke:#ef6c00
+    style TREE_VIEW fill:#e1f5fe,stroke:#0288d1
+    style PERM_VIEW fill:#fff3e0,stroke:#ef6c00
 ```
 
 ### 11.3 Roles Module
@@ -1021,23 +1021,27 @@ flowchart TB
 TenantStatus 구조:
 ```mermaid
 flowchart TB
-    subgraph TS["📋 tenant_status"]
+    subgraph TenantStatus
         direction TB
-        G1["statusGroup: 'counsel'"]
-        S1["statusKey: 'NEW' → 신규 상담"]
-        S2["statusKey: 'DUPLICATE' → 중복 상담"]
-        S3["statusKey: 'COMPLETE' → 완료"]
-        S4["statusKey: 'CANCEL' → 취소"]
-        EXT["(다른 그룹 확장 가능)"]
+        G1["counsel"]
+        S1["NEW"]
+        S2["DUPLICATE"]
+        S3["COMPLETE"]
+        S4["CANCEL"]
+        EXT["EXT"]
 
         G1 --> S1
         G1 --> S2
         G1 --> S3
         G1 --> S4
-        TS -.-> EXT
+        G1 -.-> EXT
     end
 
-    style TS fill:#e1f5fe,stroke:#0288d1
+    style G1 fill:#222831,stroke:#0288d1,color:#000000
+    style S1 fill:#393E46,stroke:#0288d1,color:#000000
+    style S2 fill:#393E46,stroke:#0288d1,color:#000000
+    style S3 fill:#393E46,stroke:#0288d1,color:#000000
+    style S4 fill:#393E46,stroke:#0288d1,color:#000000
 ```
 
 ### 11.6 Counsel Module
