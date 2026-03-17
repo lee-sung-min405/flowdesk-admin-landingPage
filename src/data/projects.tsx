@@ -38,7 +38,7 @@ export const projects: Project[] = [
     githubFrontend: "https://github.com/lee-sung-min405/flowdesk-admin-frontend",
     githubBackend: "https://github.com/lee-sung-min405/flowdesk-admin-backend",
     swagger: "https://flowdesk-admin-production.up.railway.app/api#/",
-    demo: "https://flowdesk-admin-ui-prototype-pza7etmdk-lee-sung-min405s-projects.vercel.app/",
+    demo: "https://flowdesk.co.kr/",
     architectures: [
       { label: "Backend", content: flowdeskBackendArch },
       { label: "Frontend", content: flowdeskFrontendArch },
