@@ -1,5 +1,5 @@
-const API_BASE_URL = "http://localhost:3000";
-const WEB_CODE = "SYS002";
+const API_BASE_URL = "https://flowdesk-admin-backend-production.up.railway.app";
+const WEB_CODE = "WEB-001-DEV";
 
 export interface CounselPayload {
   name: string;
