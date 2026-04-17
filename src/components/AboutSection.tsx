@@ -41,7 +41,7 @@ export default function AboutSection() {
             </div>
             <div>
               <h4 className="text-accent font-mono text-sm mb-2">경력</h4>
-              <p className="text-white/80">1년 9개월</p>
+              <p className="text-white/80">1년 10개월</p>
             </div>
             <div>
               <h4 className="text-accent font-mono text-sm mb-2">학력</h4>

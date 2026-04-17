@@ -13,7 +13,7 @@ export default function ExperienceSection() {
           icon={Briefcase}
         />
 
-        <p className="text-white/60 max-w-3xl mb-8">총 1년 9개월의 개발 경력</p>
+        <p className="text-white/60 max-w-3xl mb-8">총 1년 10개월의 개발 경력</p>
 
         <div className="space-y-8">
           {experiences.map((exp, idx) => (

@@ -13,7 +13,7 @@ const stats: Stat[] = [
   { value: 2, suffix: "개", label: "회사 경험" },
 ];
 
-// 0개월 ~ 21개월(1년 9개월)을 카운트하며 "X년 Y개월" 포맷으로 표시
+// 0개월 ~ 22개월(1년 10개월)을 카운트하며 "X년 Y개월" 포맷으로 표시
 function CareerCountUp({ totalMonths }: { totalMonths: number }) {
   const [months, setMonths] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -72,7 +72,7 @@ export default function StatsBanner() {
     <div className="py-16 border-y border-white/5 bg-white/[0.02]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {/* 개발 경력: 0년 0개월 → 1년 9개월 카운트업 */}
+          {/* 개발 경력: 0년 0개월 → 1년 10개월 카운트업 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -81,7 +81,7 @@ export default function StatsBanner() {
             className="text-center"
           >
             <p className="text-4xl md:text-5xl font-bold text-accent mb-2">
-              <CareerCountUp totalMonths={21} />
+              <CareerCountUp totalMonths={22} />
             </p>
             <p className="text-white/40 font-mono text-xs uppercase tracking-widest">
               개발 경력
